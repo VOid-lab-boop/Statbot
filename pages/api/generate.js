@@ -73,7 +73,16 @@ TIME SERIES:
 - tseries: time series tests
 - zoo: irregular time series
 
-Use EXACT syntax from package documentation. For bifactor models use Rodriguez et al. (2016) formulas. For omega indices use McDonald (1999) definitions. Always check ?function_name for correct parameters.`;
+CRITICAL CODING INSTRUCTIONS:
+1. Write COMPACT code - avoid excessive comments, use concise variable names
+2. Combine operations where possible (e.g., pipe chains with %>%)
+3. DO NOT repeat formulas - compute once, reference the result
+4. Use vectorized operations instead of loops
+5. Prioritize COMPLETE working code over verbosity
+6. If code is getting long, STREAMLINE - remove redundant sections
+7. End with clear sink() closing and a brief confirmation message
+
+Use EXACT syntax from package documentation. For bifactor models use Rodriguez et al. (2016) formulas. For omega indices use McDonald (1999) definitions.`;
 
   try {
     const response = await fetch("https://api.anthropic.com/v1/messages", {
@@ -85,7 +94,7 @@ Use EXACT syntax from package documentation. For bifactor models use Rodriguez e
       },
       body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
-        max_tokens: 4096, // INCREASED from 2000 to fix code cutoff issue
+        max_tokens: 8192, // Increased to 8192 for complete R code generation
         system: enhancedSystemPrompt,
         messages: [{ role: "user", content: userMessage }],
       }),
